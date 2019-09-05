@@ -5,8 +5,8 @@
             <h4 class="main-subtitle">A todo list made with Vue.js</h4>
         </div>
         <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
+            <router-link id="nav-item" to="/">Home</router-link> |
+            <router-link id="nav-item" to="/about">About</router-link>
         </div>
     </header>
 </template>
@@ -36,7 +36,9 @@ export default {
     margin: 10px auto;
     width: 280px;
     border-bottom: 1px solid #e43a15;
-    
+  }
+  #nav-item:hover {
+    color: #e43a15;
   }
   .title-content h1 {
       font-family: 'Livvic', sans-serif;

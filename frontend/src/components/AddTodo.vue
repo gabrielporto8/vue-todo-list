@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import uuid from 'uuid';
+
 export default {
     name: "AddTodo",
     data() {
@@ -19,6 +21,7 @@ export default {
       addTodo(e) {
         e.preventDefault();
         const newTodo = {
+          id: uuid.v4(),
           title: this.title,
           completed: false
         }
@@ -42,6 +45,7 @@ export default {
   input[type="text"] {
     flex: 10;
     padding: 5px;
+    font-family: monospace;
   }
   input[type="text"]::placeholder {
     font-family: monospace;
