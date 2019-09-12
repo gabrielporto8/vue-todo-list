@@ -3,8 +3,8 @@ const TodoItemController = require('./controllers/TodoItemController');
 
 const routes = express.Router();
 
-routes.get('/todoItems', TodoItemController.index);
-routes.post('/todoItems', TodoItemController.store);
-routes.delete('/todoItems', TodoItemController.delete);
+routes.get('/todo', TodoItemController.index);
+routes.post('/todo', TodoItemController.store);
+routes.delete('/todo/:id', TodoItemController.delete);
 
 module.exports = routes;

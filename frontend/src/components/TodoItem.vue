@@ -1,10 +1,14 @@
 <template>
     <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
-        <p>
+        <div class="checkboxes-combo">
             <input type="checkbox" v-on:change="markComplete">
+            <input type="checkbox" v-on:change="markDoing">
             {{ todo.title }}
-            <button @click="$emit('del-todo', todo.id)" class="del"><i class="fa fa-trash-o"></i></button>
-        </p>
+        </div>
+        <div class="doing-delete">
+            <span id="doing" v-if="todo.doing">DOING <i class="fa fa-spinner" aria-hidden="true"></i></span>
+            <button @click="$emit('del-todo', todo)" class="del"><i class="fa fa-trash-o"></i></button>
+        </div>    
     </div>
 </template>
 
@@ -15,6 +19,9 @@ export default {
     methods: {
         markComplete() {
             this.todo.completed = !this.todo.completed;
+        },
+        markDoing() {
+            this.todo.doing = !this.todo.doing;
         }
     }
 }
@@ -22,6 +29,8 @@ export default {
 
 <style scoped>
 .todo-item {
+    display: flex;
+    justify-content: space-between;
     background: #f4f4f4;
     padding: 10px;
     border-bottom: 1px #ccc dotted;
@@ -35,7 +44,6 @@ export default {
     border: none;
     padding: 5px 9px;
     cursor: pointer;
-    float: right;
     font-size: 1.1rem;
   }
 </style>

@@ -19,6 +19,7 @@ import AddTodo from '../components/AddTodo'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import axios from 'axios'
+import api from '../../services/api'
 
 export default {
   name: 'Home',
@@ -33,12 +34,24 @@ export default {
       todos: []
     }
   },
+  created() {
+        api
+            .get("/todo")
+            .then(response => this.todos = response.data)
+  },
   methods: {
-    deleteTodo(id) {
-        this.todos = this.todos.filter(todo => todo.id !== id)
+    deleteTodo(selectedTodo) {
+        api
+            .delete(`/todo/${selectedTodo._id}`)
+            .then(this.todos = this.todos.filter(todo => todo._id !== selectedTodo._id))
     },
-    addTodo(newTodo) {
-        this.todos = [...this.todos, newTodo]
+   addTodo(newTodo) {
+        api
+            .post("/todo", {
+              title: newTodo.title,
+              completed: newTodo.completed
+            })
+            .then(this.todos = [...this.todos, newTodo])
     }
   },
 }

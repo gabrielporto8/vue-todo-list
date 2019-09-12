@@ -4,7 +4,7 @@ module.exports = {
     async index(req, res) {
         const listTodoItems = await TodoItem.find({});
         
-        return res.json(listTodoItems.toArray());
+        return res.json(listTodoItems);
     },
 
     async store(req, res) {
@@ -19,9 +19,9 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const { id } = req.body;
+        const { id } = req.params;
 
-        const deletedTodoItem = await TodoItem.findByIdAndRemove({id});
+        const deletedTodoItem = await TodoItem.findByIdAndRemove({_id: id});
 
         return res.json(deletedTodoItem);
     }
