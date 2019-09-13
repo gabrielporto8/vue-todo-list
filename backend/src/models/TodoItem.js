@@ -5,10 +5,14 @@ const TodoItemSchema = new Schema({
         type: String,
         required: true
     },
+    doing: {
+      type: Boolean,
+      required: true
+    },
     completed: {
-        type: Boolean,
-        required: true
-    }, 
+      type: Boolean,
+      required: true
+    } 
   }, {
     timestamps: true
 });

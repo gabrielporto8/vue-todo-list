@@ -1,14 +1,14 @@
 <template>
     <div class="addTodo">
         <form @submit="addTodo">
-            <input type="text" required minlength="1" v-model="title" name="title" placeholder="Add a new todo item...">
+            <input type="text" required minlength="1" autocomplete="off"
+            v-model="title" name="title" placeholder="Add a new todo item...">
             <input type="submit" value="Submit" class="btn" >
         </form>
     </div>
 </template>
 
 <script>
-import uuid from 'uuid';
 
 export default {
     name: "AddTodo",
@@ -23,7 +23,7 @@ export default {
         const newTodo = {
           title: this.title,
           doing: false,
-          completed: false
+          completed: false,
         }
 
         this.$emit('add-todo', newTodo);

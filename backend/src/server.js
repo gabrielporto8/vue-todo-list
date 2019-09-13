@@ -6,7 +6,7 @@ const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://...', {
+mongoose.connect('mongodb+srv:...', {
   useNewUrlParser: true,
   useFindAndModify: false
 });

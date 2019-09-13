@@ -8,10 +8,11 @@ module.exports = {
     },
 
     async store(req, res) {
-        const { title, completed } = req.body;
+        const { title, doing, completed } = req.body;
 
         const newTodoItem = await TodoItem.create({
             title,
+            doing,
             completed
         });
 
@@ -24,5 +25,11 @@ module.exports = {
         const deletedTodoItem = await TodoItem.findByIdAndRemove({_id: id});
 
         return res.json(deletedTodoItem);
+    },
+
+    async update(req, res) {
+        const updatedTodoItem = await TodoItem.findByIdAndUpdate(req.body._id, req.body, {new: true});
+
+        return res.json(updatedTodoItem)
     }
 };

@@ -5,7 +5,10 @@
     </div>
     <div class="list-component">
       <AddTodo v-on:add-todo="addTodo" />
-      <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+      <Todos v-bind:todos="todos" 
+        v-on:mark-complete="markComplete"
+        v-on:mark-doing="markDoing"
+        v-on:del-todo="deleteTodo" />
     </div>
     <div class="footer">
       <Footer />
@@ -18,8 +21,8 @@ import Todos from '../components/Todos'
 import AddTodo from '../components/AddTodo'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
-import axios from 'axios'
-import api from '../../services/api'
+
+import TodoService from '../../services/TodoService'
 
 export default {
   name: 'Home',
@@ -34,26 +37,29 @@ export default {
       todos: []
     }
   },
-  created() {
-        api
-            .get("/todo")
-            .then(response => this.todos = response.data)
+  async created() {
+    this.todos = await TodoService.getTodo();
   },
   methods: {
-    deleteTodo(selectedTodo) {
-        api
-            .delete(`/todo/${selectedTodo._id}`)
-            .then(this.todos = this.todos.filter(todo => todo._id !== selectedTodo._id))
+    async addTodo(newTodo) {
+      await TodoService.createTodo(newTodo);
+      this.todos = await TodoService.getTodo();
     },
-   addTodo(newTodo) {
-        api
-            .post("/todo", {
-              title: newTodo.title,
-              completed: newTodo.completed
-            })
-            .then(this.todos = [...this.todos, newTodo])
+    async deleteTodo(id) {
+      await TodoService.deleteTodo(id);
+      this.todos = await TodoService.getTodo();
+    },
+    async markComplete(todoItem) {
+      todoItem.completed = !todoItem.completed;
+      todoItem.doing = false;
+      await TodoService.updateTodo(todoItem);
+    },
+    async markDoing(todoItem) {
+      todoItem.doing = !todoItem.doing;
+      todoItem.completed = false;
+      await TodoService.updateTodo(todoItem);
     }
-  },
+  }
 }
 </script>
 
