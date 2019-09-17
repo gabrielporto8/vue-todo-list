@@ -19,11 +19,13 @@ class TodoService {
         })
     }
 
-    static createTodo(newTodo) {
+    static createTodo(todoItem) {
         return axios.post(url, {
-            title: newTodo.title,
-            doing: newTodo.doing,
-            completed: newTodo.completed
+            title: todoItem.title,
+            doing: todoItem.doing,
+            completed: todoItem.completed,
+            showCommentary: todoItem.showCommentary,
+            commentaries: todoItem.commentaries
         });
     }
 
@@ -36,7 +38,9 @@ class TodoService {
             _id: todoItem._id,
             title: todoItem.title,
             doing: todoItem.doing,
-            completed: todoItem.completed
+            completed: todoItem.completed,
+            showCommentary: todoItem.showCommentary,
+            commentaries: todoItem.commentaries
         })
     }
 }

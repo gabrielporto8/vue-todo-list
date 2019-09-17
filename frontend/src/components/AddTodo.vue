@@ -24,6 +24,8 @@ export default {
           title: this.title,
           doing: false,
           completed: false,
+          showCommentary: false,
+          commentaries: []
         }
 
         this.$emit('add-todo', newTodo);

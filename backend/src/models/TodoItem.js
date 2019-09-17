@@ -12,6 +12,14 @@ const TodoItemSchema = new Schema({
     completed: {
       type: Boolean,
       required: true
+    },
+    showCommentary: {
+      type: Boolean,
+      required: true
+    },
+    commentaries: {
+      type: Array,
+      required: true
     } 
   }, {
     timestamps: true

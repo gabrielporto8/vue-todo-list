@@ -5,7 +5,10 @@
     </div>
     <div class="list-component">
       <AddTodo v-on:add-todo="addTodo" />
-      <Todos v-bind:todos="todos" 
+      <Todos v-bind:todos="todos"
+        v-on:add-commentary="addCommentary" 
+        v-on:del-commentary="deleteCommentary"
+        v-on:show-commentary="showCommentaryInput"
         v-on:mark-complete="markComplete"
         v-on:mark-doing="markDoing"
         v-on:del-todo="deleteTodo" />
@@ -41,8 +44,8 @@ export default {
     this.todos = await TodoService.getTodo();
   },
   methods: {
-    async addTodo(newTodo) {
-      await TodoService.createTodo(newTodo);
+    async addTodo(todoItem) {
+      await TodoService.createTodo(todoItem);
       this.todos = await TodoService.getTodo();
     },
     async deleteTodo(id) {
@@ -57,6 +60,16 @@ export default {
     async markDoing(todoItem) {
       todoItem.doing = !todoItem.doing;
       todoItem.completed = false;
+      await TodoService.updateTodo(todoItem);
+    },
+    async showCommentaryInput(todoItem) {
+      todoItem.showCommentary = !todoItem.showCommentary;
+      await TodoService.updateTodo(todoItem);
+    },
+    async addCommentary(todoItem) {
+      await TodoService.updateTodo(todoItem);
+    },
+    async deleteCommentary(todoItem) {
       await TodoService.updateTodo(todoItem);
     }
   }

@@ -8,12 +8,14 @@ module.exports = {
     },
 
     async store(req, res) {
-        const { title, doing, completed } = req.body;
+        const { title, doing, completed, showCommentary, commentaries } = req.body;
 
         const newTodoItem = await TodoItem.create({
             title,
             doing,
-            completed
+            completed,
+            showCommentary,
+            commentaries
         });
 
         return res.status(201).json(newTodoItem);
